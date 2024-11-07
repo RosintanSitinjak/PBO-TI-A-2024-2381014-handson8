@@ -2,7 +2,6 @@ package views;
 
 import entities.TodoList;
 import services.TodoListService;
-
 import java.util.Scanner;
 
 public class TodoListTerminalView implements TodoListView{
@@ -13,10 +12,7 @@ public class TodoListTerminalView implements TodoListView{
         this.todoListService = todoListService;
     }
 
-    @Override
-    public void run() {
-        showMainMenu();
-    }
+    
     public void showMainMenu() {
         // infinite loop so the program will always run
         boolean isRunning = true;
@@ -65,14 +61,14 @@ public class TodoListTerminalView implements TodoListView{
         if (number.equals("x")) {
             //batal
         } else {
-            boolean success = removeTodoList(Integer.valueOf(number));
+            boolean success = todoListService.removeTodoList(Integer.valueOf(number));
             if (!success) {
                 System.out.println("Gagal menghapus todo list : " + number);
             }
         }
     }
 
-    public static void showMenuEditTodoList() {
+    public void showMenuEditTodoList() {
         System.out.println("MENGEDIT TODO LIST");
         String selectedTodo = input("Masukkan nomor todo (x jika batal)");
         if (selectedTodo.equals("x")) {
@@ -82,14 +78,13 @@ public class TodoListTerminalView implements TodoListView{
         if (newTodo.equals("x")) {
             return;
         }
-        boolean isEditTodoSuccess = editTodoList(Integer.valueOf(selectedTodo), newTodo);
+        boolean isEditTodoSuccess = todoListService.editTodoList(Integer.valueOf(selectedTodo), newTodo);
         if (isEditTodoSuccess) {
             System.out.println("Berhasil mengedit todo");
         } else {
             System.out.println("Gagal mengedit todo");
         }
     }
-
 
     public String input(String info) {
         System.out.print(info + " : ");
@@ -103,10 +98,11 @@ public class TodoListTerminalView implements TodoListView{
         for (var i = 0; i < todos.length; i++) {
             var todo = todos[i];
             if (todo != null) {
-                System.out.println((i + 1) + ". " + todo);
+                System.out.println((i + 1) + ". " + todo.getTodo());
             }
         }
     }
+
     @Override
     public void run(){
         showMainMenu();
