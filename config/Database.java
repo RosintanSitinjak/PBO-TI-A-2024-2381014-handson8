@@ -12,7 +12,7 @@ public class Database {
     private final String port;
     private Connection connection;
 
-    public Database(final String dbName, final String userName, final String password, final String host, final String port){
+    public Database(String dbName, String userName, String password, String host, String port) {
         this.dbName = dbName;
         this.userName = userName;
         this.password = password;
